@@ -2,9 +2,11 @@ package com.example.alex.homework5;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class DetailActivity extends Activity {
@@ -38,25 +40,52 @@ public class DetailActivity extends Activity {
                         this, "album", EventsFragment.class));
         actionBar.addTab(tab);
     }
-
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.my, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.actionbar, menu);
             return true;
         }
-        return super.onOptionsItemSelected(item);
-    }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            switch (id) {
+                case R.id.action_settings:
+                    settings();
+                    return true;
+                case R.id.action_search:
+                    search();
+                    return true;
+                case R.id.action_add:
+                    add();
+                    return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        private void add() {
+            Toast toast = Toast.makeText(this, "Adding", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        private void search() {
+            /*SearchFragment frag = new SearchFragment();
+            FragmentManager manager = getFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.my_layout, frag);
+            transaction.commit();*/
+
+            startActivity(new Intent(DetailActivity.this, MainActivity.class));
+            Intent intent = new Intent(DetailActivity.this, MainActivity.class);
+            startActivity(intent);
+
+            Toast toast = Toast.makeText(this, "Search", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        private void settings() {
+            Toast toast = Toast.makeText(this, "Settings", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 }
